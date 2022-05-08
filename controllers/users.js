@@ -1,16 +1,18 @@
-//[SECTION] dependencies and Modules
-const User = require("../model/User");
-const bcrypt = require("bcrypt");
-const auth require("../auth");
+//[SECTION] Dependecies and Modules
+	const User = require('../model/User');
+	const bcrypt = require('bcrypt');
+	const auth = require('../auth');
 
-
-//[SECTION] Functionalities 
-
+//[SECTION] Functionalites [Create] 
 module.exports.registerUser = (data) => {
+	let fName = data.firstName;
+	let lName = data.lastName;
 	let email = data.email;
 	let passW = data.password;
 
 	let newUser = new User({
+		firstName: fName,
+		lastName: lName,
 		email: email,
 		password: bcrypt.hashSync(passW, 10),
 	});
@@ -53,6 +55,13 @@ module.exports.loginUser = (reqBody) => {
 	});
 };
 
+//[SECTION] Functionalites [Retrieve] 
+	module.exports.getAllUser = () => {
+		return User.find({}).then(user => {
+			return user;
+		});
+	};
+
 //[SECTION] Functionalites [Update] 
 module.exports.setAsAdmin = (userId) => {
 	let updates = {
@@ -79,4 +88,6 @@ module.exports.setAsNonAdmin = (userId) => {
 		};
 	});
 };
+
+
 

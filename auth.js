@@ -1,3 +1,6 @@
+//[SECTION] Dependencies and Modules
+	const jwt = require('jsonwebtoken');
+	const dotenv = require('dotenv');
 
 //[SECTION] Environment Variable  Setup
 	dotenv.config();

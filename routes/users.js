@@ -1,17 +1,17 @@
 //[Section] Dependecies and Modules
-const exp = require('express');
-const controller = require('../controllers/users');
-const auth = require('../auth');
+	const exp = require('express');
+	const controller = require('../controllers/users');
+	const auth = require('../auth');
 
 //[Section] Functionalities
-const route = exp.Router();
+	const route = exp.Router();
 
 route.post('/register', (req, res) => {
-	let userData = req.body;
-	controller.registerUser(userData).then(outcome => {
-		res.send(outcome);
+		let userData = req.body;
+		controller.registerUser(userData).then(outcome => {
+			res.send(outcome);
+		});
 	});
-});
 
 route.post('/check-email', (req, res) => {
 		controller.checkEmailExist(req.body).then(outcome => {
@@ -24,7 +24,15 @@ route.post('/login', (req, res) => {
 	 	controller.loginUser(data).then(outcome => {
 	 		res.send(outcome);
 	 	});
-	 });		
+	 });	
+
+route.get('/all',auth.verify ,(req, res) => {
+		let userData = auth.decode(req.headers.authorization);
+		let userId = userData.id;
+		controller.getAllUser(userId).then(outcome => {
+			res.send(outcome);
+		});
+	});
 
 route.put('/:userId/set-as-admin', auth.verify ,(req, res) => {
 		let token = req.headers.authorization;
@@ -46,3 +54,4 @@ route.put('/:userId/set-as-user', auth.verify ,(req, res) => {
 
 //[Section] Expose Route Sytem
 	module.exports = route;
+

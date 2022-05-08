@@ -2,7 +2,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
+const cors = require("cors")
+const usersRoutes =require('./routes/users');
 
 //[SECTION] Environtment Variables Setup
 dotenv.config();
@@ -19,8 +20,9 @@ const db = mongoose.connection;
 	db.once('open', () => console.log(`Connected to MongoDb Atlas`))
 
 //[SECTION] Server Routes
-//[SECTION] Server Response
+app.use('/users', usersRoutes);
 
+//[SECTION] Server Response
 app.get('/',(req, res) => {
 	res.send(`MBC/loveRadio Project Deployed Succesfully`);
 });
