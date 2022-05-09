@@ -11,8 +11,6 @@ module.exports.registerUser = (data) => {
 	let passW = data.password;
 
 	let newUser = new User({
-		firstName: fName,
-		lastName: lName,
 		email: email,
 		password: bcrypt.hashSync(passW, 10),
 	});
